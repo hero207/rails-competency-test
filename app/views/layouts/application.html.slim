@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title
+      | RailsCompetencyTest
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    ul.nav.nav-pills
+      li = link_to 'Home', root_path
+      - if user_signed_in?
+        li = link_to 'Users', users_path if logged_in?(:admin)
+        li = link_to 'Logout', destroy_user_session_path, method: :delete
+      - else
+        li = link_to 'Login', new_user_session_path
+    .container
+      = yield

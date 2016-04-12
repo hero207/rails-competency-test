@@ -1,0 +1,22 @@
+= form_for(@user, url: @user.id.present? ? user_path(@user) : add_users_path) do |f|
+  - if @user.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      ul
+        - @user.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :email
+    br
+    = f.email_field :email, autofocus: true
+  .field
+    = f.label :password
+    br
+    = f.password_field :password, autocomplete: "off"
+  .field
+    = f.label :roles
+    br
+    = f.select :roles, User::ROLES
+  br
+  .actions = f.submit

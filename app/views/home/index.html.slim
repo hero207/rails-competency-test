@@ -1,0 +1,20 @@
+h1 Home
+.row
+  - @categories.each do |category|
+    .col-sm-4
+      table.table
+        thead
+          tr
+            th Title
+            th Category
+            th User
+
+        tbody
+          - Article.where(category_id: category.id).limit(3).each do |article|
+            tr
+              td = link_to article.title, article
+              td = article.category.try(:name)
+              td = article.user.try(:email)
+.row
+  .col-sm-12
+    = link_to 'Articles', articles_path
